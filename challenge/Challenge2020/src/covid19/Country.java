@@ -108,45 +108,49 @@ public class Country {
 	}
 
 	public static void main(String[] args) {
-//		Country Ghana = new Country("Ghana",28569569);
-//		Ghana.addCovidCase("27/03/20", 8);
-//		Ghana.addCovidCase("27/03/20", 89);
-//		Ghana.addNumDeaths(50);
-////		Ghana.getNumDeath();
-//		System.out.println("This is the death rate: "+ Ghana.getDeathRate());
-//		System.out.println("This is the death number: "+ Ghana.getNumDeath());
-		String filename;
-        Hashtable<String,Country>record;
-        
-            filename = "/home/hussein/Desktop/Challenge/challenge/population_data.csv";
-            record = new Hashtable<>(21320);
-                try{
-                    Scanner scanIn = new Scanner(new BufferedReader(new FileReader(filename)));
-                    scanIn.nextLine();
-                    while(scanIn.hasNextLine()){
-                        String[] data = scanIn.nextLine().split(",");
-                        try {
-                        record.put(data[0],new Country(data[0],Integer.parseInt(data[2])));
-                        }catch(Exception e) {
-                        	System.out.println("-------------");
-                        	if(data.length==5) {
-                        		record.put(data[0],new Country(data[0],Integer.parseInt(data[data.length-2])));
-                        		
-                        		System.out.println(data[data.length-2]);
-                        	}
-                        		
+		
+		String filename = "/home/hussein/Desktop/Challenge/challenge/population_data.csv";;
+        Hashtable<String,Country>countries= new Hashtable<>();
+        int count = 0;
+           
+           
+            try{
+                Scanner scan = new Scanner(new BufferedReader(new FileReader(filename)));
+                scan.nextLine();
+                while(scan.hasNextLine()){
+                    String[] data = scan.nextLine().split(",");
+                    try {
+                    	if(data[data.length-1].length()==2) {
+                    		count++;
+                    		System.out.println(data[4]);
+                    		countries.put(data[data.length-1],new Country(data[0],Integer.parseInt(data[2])));
+                    	}
+                    		
+                    	
+                    	System.out.println(Arrays.toString(data));
+                    }catch(Exception e) {
+//                        	System.out.println("-------------");
+//                        	if(data.length==5) {
+//                        		countries.put(data[0],new Country(data[0],Integer.parseInt(data[data.length-2])));
+//                        		
+//                        		System.out.println(data[data.length-2]);
+//                        	}
+                    		
 //                        	System.out.println(data.length);
-                        	System.out.println("-------------");
-                        	continue;
-                        }
-                    }   
-                    scanIn.close();
-                }catch(FileNotFoundException e){
-                    e.printStackTrace();
-                }
-            
-		
-		
+//                    	System.out.println("-------------");
+                    	continue;
+                    }
+                }   
+                scan.close();
+            }catch(FileNotFoundException e){
+                e.printStackTrace();
+            }
+                System.out.println("COunt is "+ count);
+//            System.out.println(countries.get("AE").getCountryName());
+//            System.out.println(countries.get("SG").getCountryName());
+//            System.out.println(countries.get("KR").getCountryName());
+//            System.out.println(countries.get("IQ").getCountryName());
+            System.out.println(countries.get("IQ").getCountryName());
 	
 	}
 	
