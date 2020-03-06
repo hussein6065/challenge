@@ -1,6 +1,12 @@
 package covid19;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Hashtable;
+import java.util.Scanner;
 
 
 
@@ -101,7 +107,7 @@ public class Country {
 		this.numDeath = numDeath;
 	}
 
-//	public static void main(String[] args) {
+	public static void main(String[] args) {
 //		Country Ghana = new Country("Ghana",28569569);
 //		Ghana.addCovidCase("27/03/20", 8);
 //		Ghana.addCovidCase("27/03/20", 89);
@@ -109,9 +115,39 @@ public class Country {
 ////		Ghana.getNumDeath();
 //		System.out.println("This is the death rate: "+ Ghana.getDeathRate());
 //		System.out.println("This is the death number: "+ Ghana.getNumDeath());
-//		
-//		
-//	
-//	}
+		String filename;
+        Hashtable<String,Country>record;
+        
+            filename = "/home/hussein/Desktop/Challenge/challenge/population_data.csv";
+            record = new Hashtable<>(21320);
+                try{
+                    Scanner scanIn = new Scanner(new BufferedReader(new FileReader(filename)));
+                    scanIn.nextLine();
+                    while(scanIn.hasNextLine()){
+                        String[] data = scanIn.nextLine().split(",");
+                        try {
+                        record.put(data[0],new Country(data[0],Integer.parseInt(data[2])));
+                        }catch(Exception e) {
+                        	System.out.println("-------------");
+                        	if(data.length==5) {
+                        		record.put(data[0],new Country(data[0],Integer.parseInt(data[data.length-2])));
+                        		
+                        		System.out.println(data[data.length-2]);
+                        	}
+                        		
+//                        	System.out.println(data.length);
+                        	System.out.println("-------------");
+                        	continue;
+                        }
+                    }   
+                    scanIn.close();
+                }catch(FileNotFoundException e){
+                    e.printStackTrace();
+                }
+            
+		
+		
+	
+	}
 	
 }
